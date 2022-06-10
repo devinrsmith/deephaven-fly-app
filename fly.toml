@@ -1,5 +1,5 @@
 [env]
-  JAVA_OPTS = "-Xms768m -Xmx768m -Ddeephaven.application.dir=/app.d"
+  JAVA_OPTS = "-Xms1768m -Xmx1768m -Ddeephaven.application.dir=/app.d"
 
 [[services]]
   internal_port = 10000

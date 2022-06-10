@@ -2,6 +2,8 @@ import os
 
 from deephaven import new_table
 from deephaven.column import string_col, int_col
+from deephaven import csv
+from deephaven import parquet
 
 
 def get_fly_info():
@@ -15,3 +17,7 @@ def get_fly_info():
     ])
 
 fly_info = get_fly_info()
+
+csv_pirate = csv.read("/mnt/deephaven/20081205_thepiratebay.csv")
+
+parquet_100mm = parquet.read("/mnt/deephaven/parquet/100mm.parquet")

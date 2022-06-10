@@ -10,6 +10,6 @@ ORG="${ORG:-deephaven-13}"
 
 # Echo, have the first region selected
 echo | flyctl launch --copy-config --no-deploy --name "${APP_NAME}" --org "${ORG}"
-flyctl scale memory 1024
+flyctl scale memory 2048
 flyctl deploy --remote-only
 flyctl open
