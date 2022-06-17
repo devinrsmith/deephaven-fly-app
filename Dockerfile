@@ -12,5 +12,6 @@ RUN set -eux; \
 
 # TODO: the amove /etf/fstab doesn't seem to auto-run in fly.io
 # In the meantime, we've customized the entrypoint script to call `mount -a`, but we should prefer to have a better way to do it.
+# https://github.com/deephaven/deephaven-core/discussions/1105
 
 COPY app.d/ /app.d

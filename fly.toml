@@ -1,3 +1,7 @@
+# fly.toml file generated for dh-devin on 2022-06-13T11:21:56-07:00
+
+app = "dh-devin"
+
 [env]
   JAVA_OPTS = "-Xms1768m -Xmx1768m -Ddeephaven.application.dir=/app.d"
 

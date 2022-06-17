@@ -1,10 +1,8 @@
 import os
 
-from deephaven import new_table
+from deephaven import new_table, csv, parquet
 from deephaven.column import string_col, int_col
-from deephaven import csv
-from deephaven import parquet
-
+from deephaven.stream.kafka import producer, consumer
 
 def get_fly_info():
     return new_table([
@@ -17,6 +15,13 @@ def get_fly_info():
     ])
 
 fly_info = get_fly_info()
+
+producer.produce(
+        fly_info,
+        {'bootstrap.servers': 'dh-flypanda.internal:9092'},
+        'fly_info',
+        producer.KeyValueSpec.IGNORE,
+        producer.json_spec(["Name", "Id", "Region", "MemoryMB", "CpuCount", "PublicIP"]))()
 
 csv_pirate = csv.read("/mnt/deephaven/20081205_thepiratebay.csv")
 
