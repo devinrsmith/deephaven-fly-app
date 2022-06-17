@@ -1,0 +1,18 @@
+[env]
+  JAVA_OPTS = "-Xms1768m -Xmx1768m -Ddeephaven.application.dir=/app.d"
+
+[[services]]
+  internal_port = 10000
+  protocol = "tcp"
+
+  [[services.http_checks]]
+    grace_period = "30s"
+    method = "head"
+    path = "/ide/"
+    protocol = "http"
+
+  [[services.ports]]
+    handlers = ["tls"]
+    port = 443
+    [services.ports.tls_options]
+      alpn = ["h2"]
