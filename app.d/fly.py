@@ -1,8 +1,11 @@
 import os
+import os.path
+import shutil
 
-from deephaven import new_table, csv, parquet
+from deephaven import new_table, parquet
 from deephaven.column import string_col, int_col
-from deephaven.stream.kafka import producer, consumer
+from deephaven.plot import Figure
+
 
 def get_fly_info():
     return new_table([
@@ -14,15 +17,25 @@ def get_fly_info():
         string_col("PublicIP", [os.getenv("FLY_PUBLIC_IP")])
     ])
 
+
+def get_spy_mid():
+    if not os.path.exists('/data/dh-spy-mid.parquet'):
+        # Copy from distributed filesystem to local filesystem
+        shutil.copyfile('/mnt/deephaven/parquet/dh-spy-mid.parquet', '/data/dh-spy-mid.parquet')
+    return parquet.read('/data/dh-spy-mid.parquet')
+
+
+def get_spy_plot(spy_mid):
+    return (Figure()
+        .plot_xy(series_name="Spy Mid", t=spy_mid, x="Timestamp", y="Mid")
+        .x_axis(label="Timestamp")
+        .y_axis(label="Mid")
+        .chart_title(title="Spy Mid")
+        .show())
+
+
 fly_info = get_fly_info()
 
-producer.produce(
-        fly_info,
-        {'bootstrap.servers': 'dh-flypanda.internal:9092'},
-        'fly_info',
-        producer.KeyValueSpec.IGNORE,
-        producer.json_spec(["Name", "Id", "Region", "MemoryMB", "CpuCount", "PublicIP"]))()
+spy_mid = get_spy_mid()
 
-csv_pirate = csv.read("/mnt/deephaven/20081205_thepiratebay.csv")
-
-parquet_100mm = parquet.read("/mnt/deephaven/parquet/100mm.parquet")
+spy_plot = get_spy_plot(spy_mid)

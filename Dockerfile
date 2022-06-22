@@ -1,7 +1,7 @@
 FROM ghcr.io/devinrsmith/fly-jetty:latest
 #FROM deephaven/server:local-build
 
-ADD https://github.com/chrislusf/seaweedfs/releases/download/3.10/linux_amd64.tar.gz .
+ADD https://github.com/chrislusf/seaweedfs/releases/download/3.12/linux_amd64.tar.gz .
 
 RUN set -eux; \
     tar xzvf linux_amd64.tar.gz; \

@@ -1,9 +1,9 @@
-# fly.toml file generated for dh-devin on 2022-06-13T11:21:56-07:00
+# fly.toml file generated for dh-spy on 2022-06-22T12:18:31-07:00
 
-app = "dh-devin"
+app = "dh-spy"
 
 [env]
-  JAVA_OPTS = "-Xms1768m -Xmx1768m -Ddeephaven.application.dir=/app.d"
+  JAVA_OPTS = "-Xms7168m -Xmx7168m -Ddeephaven.application.dir=/app.d"
 
 [[services]]
   internal_port = 10000
@@ -20,3 +20,7 @@ app = "dh-devin"
     port = 443
     [services.ports.tls_options]
       alpn = ["h2"]
+
+[mount]
+source = "dh_spy_data"
+destination = "/data"
