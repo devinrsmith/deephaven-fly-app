@@ -22,7 +22,7 @@ def get_spy_mid():
     if not os.path.exists('/data/dh-spy-mid.parquet'):
         # Copy from distributed filesystem to local filesystem
         shutil.copyfile('/mnt/deephaven/parquet/dh-spy-mid.parquet', '/data/dh-spy-mid.parquet')
-    return parquet.read('/data/dh-spy-mid.parquet')
+    return parquet.read('/data/dh-spy-mid.parquet').coalesce()
 
 
 def get_spy_plot(spy_mid):
